@@ -1,4 +1,5 @@
 <?php
+
     include 'Check.php';
 
     if (isset($_POST['login'])) {
@@ -10,7 +11,7 @@
     }
 
     if (isset($_POST['confirm_password'])) {
-        Check::checkConfirmPassword($_POST['confirm_password']);
+        Check::checkConfirmPassword($_POST['confirm_password'], $_POST['pass']);
     }
 
     if (isset($_POST['email'])) {

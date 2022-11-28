@@ -15,7 +15,7 @@ class Json
     {
         $file_handle = fopen("Users.json", "w+");
         if (flock($file_handle, LOCK_EX)) {
-            if (fwrite($file_handle, json_encode($json)) == false) {
+            if (!fwrite($file_handle, json_encode($json))) {
                 echo "Can't write to the file";
             }
             flock($file_handle, LOCK_UN);

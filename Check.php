@@ -1,12 +1,16 @@
 <?php
+
 include "Json.php";
+
 class Check
 {
+    static private string $password = "";
+
     static private function sanitizeString(string $var): string
     {
         $var = strip_tags($var);
         $var = htmlentities($var);
-        return $var = stripslashes($var);
+        return stripslashes($var);
     }
 
     static public function checkLogin(string $login): void
@@ -25,45 +29,55 @@ class Check
     static public function checkPassword(string $password): void
     {
         $password = self::sanitizeString($password);
-        if (true) {
+        if (!preg_match("#[a-zA-Z0-9]#", $password)) {
             echo "<span class='taken'>&nbsp;&#x2718; " .
-                "The login '$password' is taken</span>";
+                "The password is invalid, " .
+                "<br>make sure you typed only letters and numbers</span>";
         } else {
             echo "<span class='available'>&nbsp;&#x2714; " .
-                "The login '$password' is available</span>";
+                "The password is valid</span>";
         }
     }
-    static public function checkConfirmPassword(string $password): void
+
+    static public function checkConfirmPassword(string $confirmPassword, string $pass): void
     {
-        $password = self::sanitizeString($password);
-        if (true) {
+        $confirmPassword = self::sanitizeString($confirmPassword);
+        $pass = self::sanitizeString($pass);
+        if ($confirmPassword != $pass) {
             echo "<span class='taken'>&nbsp;&#x2718; " .
-                "The login '$password' is taken</span>";
+                "The passwords don't match</span>";
         } else {
             echo "<span class='available'>&nbsp;&#x2714; " .
-                "The login '$password' is available</span>";
+                "The passwords match</span>";
         }
     }
-    static public function checkEmail(string $password): void
+
+    static public function checkEmail(string $email): void
     {
-        $password = self::sanitizeString($password);
-        if (true) {
+        $email = self::sanitizeString($email);
+        $json = Json::create();
+        if (!preg_match("#^[A-Z0-9._%+-]+@[A-Z0-9-]+\.[A-Z]{2,4}$#i", $email)) {
             echo "<span class='taken'>&nbsp;&#x2718; " .
-                "The login '$password' is taken</span>";
+                "The email is not in the correct format</span>";
+        } elseif (in_array($email, $json['email'])) {
+            echo "<span class='taken'>&nbsp;&#x2718; " .
+                "The email '$email' is taken</span>";
         } else {
             echo "<span class='available'>&nbsp;&#x2714; " .
-                "The login '$password' is available</span>";
+                "The email '$email' is available</span>";
         }
     }
-    static public function checkName(string $password): void
+
+    static public function checkName(string $name): void
     {
-        $password = self::sanitizeString($password);
-        if (true) {
+        $name = self::sanitizeString($name);
+        if (!preg_match("#[a-zA-Z]#", $name)) {
             echo "<span class='taken'>&nbsp;&#x2718; " .
-                "The login '$password' is taken</span>";
+                "The name is invalid, " .
+                "<br>make sure you typed only letters</span>";
         } else {
             echo "<span class='available'>&nbsp;&#x2714; " .
-                "The login '$password' is available</span>";
+                "The name is valid</span>";
         }
     }
 }
