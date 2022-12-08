@@ -3,6 +3,7 @@ session_start();
 echo <<<_END
 <script src = "jquery-3.6.1.min.js"></script>
 <script src = "checkUser.js"></script>
+<script src = "addUser.js"></script>
 <script src = "getUser.js"></script>
 _END;
 if (!isset($_GET['reg'])) {

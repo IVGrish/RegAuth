@@ -4,9 +4,7 @@ include "Json.php";
 
 class Check
 {
-    static private string $password = "";
-
-    static private function sanitizeString(string $var): string
+    static public function sanitizeString(string $var): string
     {
         $var = strip_tags($var);
         $var = htmlentities($var);

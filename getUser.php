@@ -1,12 +1,32 @@
 <?php
 
-include "Json.php";
+session_start();
 
-if (isset($_POST['signup'])) {
-    $json['login'][] = $_POST['login'];
-    $json['password'][] = $_POST['password'];
-    $json['confirm_password'][] = $_POST['confirm_password'];
-    $json['email'][] = $_POST['email'];
-    $json['name'][] = $_POST['name'];
-    Json::encode($json);
+include 'Json.php';
+
+if (isset($_POST['signin'])) {
+    $decode = Json::create();
+    $pointer = false;
+    foreach ($decode['login'] as $key => $item) {
+        foreach ($decode['password'] as $clue => $elem) {
+            if ($item == $_POST['login'] &&
+                $elem == $_POST['password'] &&
+                $key  == $clue
+            ) {
+                $_SESSION['name'] = $decode['name'][$clue];
+                $pointer = true;
+                break;
+            }
+        }
+    }
+    if ($pointer) {
+        $response = [
+            'status' => true
+        ];
+    } else {
+        $response = [
+            'status' => false
+        ];
+    }
+    echo json_encode($response);
 }

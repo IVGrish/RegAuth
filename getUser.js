@@ -1,17 +1,18 @@
 function getUser(form)
 {
-    //let elem = document.getElementsByTagName("span");
-    //if (!(elem.classList.contains("taken"))) {
-        $.post('getUser.php', {
-                login: form.login.value,
-                password: form.password.value,
-                confirm_password: form.confirm_password.value,
-                email: form.email.value,
-                name: form.name.value,
-                signup: form.signup.value
+    $.post('getUser.php', {
+            login: form.login.value,
+            password: form.password.value,
+            signin: form.signin.value
             },
-            function () {
-                window.location.href = 'hello.php';
-            });
-    //}
+            function (data) {
+                if (data.status) {
+                    window.location.href = 'hello.php';
+                } else {
+                    let auth = document.querySelector('form');
+                    let newElem = document.createElement('div');
+                    newElem.innerHTML = "Your login or password are not right!";
+                    auth.appendChild(newElem);
+                }
+    }, 'json');
 }

@@ -1,4 +1,4 @@
-<form method="POST" action="index.php?reg=1" onsubmit="getUser(this)">
+<form method="POST" action="index.php?reg=1" onsubmit="addUser(this); return false;">
     <label for="login">Login:</label>
     <input type="text" id="login" name="login" minlength="6" required onblur="checkUser(this)">
     <div id="used-login">&nbsp;</div>
