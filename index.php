@@ -6,16 +6,16 @@ if (isset($_SESSION['name'])) {
 }
 echo <<<_STYLE
 <head>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="style/style.css">
     <title>RegAuth</title>
 </head>
 _STYLE;
 
 echo <<<_SCRIPT
-<script src = "jquery-3.6.1.min.js"></script>
-<script src = "checkUser.js"></script>
-<script src = "addUser.js"></script>
-<script src = "getUser.js"></script>
+<script src = "scripts/jquery-3.6.1.min.js"></script>
+<script src = "scripts/checkUser.js"></script>
+<script src = "scripts/addUser.js"></script>
+<script src = "scripts/getUser.js"></script>
 _SCRIPT;
 
 if (!isset($_GET['reg'])) {
