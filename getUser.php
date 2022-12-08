@@ -5,12 +5,12 @@ session_start();
 include 'Json.php';
 
 if (isset($_POST['signin'])) {
-    $decode = Json::create();
+    $decode = Json::read();
     $pointer = false;
     foreach ($decode['login'] as $key => $item) {
         foreach ($decode['password'] as $clue => $elem) {
             if ($item == $_POST['login'] &&
-                $elem == $_POST['password'] &&
+                $elem == md5($_POST['password']) &&
                 $key  == $clue
             ) {
                 $_SESSION['name'] = $decode['name'][$clue];

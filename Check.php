@@ -14,7 +14,7 @@ class Check
     static public function checkLogin(string $login): void
     {
         $login = self::sanitizeString($login);
-        $json = Json::create();
+        $json = Json::read();
         if (in_array($login, $json['login'])) {
             echo "<span class='taken'>&nbsp;&#x2718; " .
                 "The login '$login' is taken</span>";
@@ -53,7 +53,7 @@ class Check
     static public function checkEmail(string $email): void
     {
         $email = self::sanitizeString($email);
-        $json = Json::create();
+        $json = Json::read();
         if (!preg_match("#^[A-Z0-9._%+-]+@[A-Z0-9-]+\.[A-Z]{2,4}$#i", $email)) {
             echo "<span class='taken'>&nbsp;&#x2718; " .
                 "The email is not in the correct format</span>";
