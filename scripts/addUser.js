@@ -1,7 +1,13 @@
 function addUser(form)
 {
-    let elem = document.querySelector('span');
-    if (!(elem.classList.contains('taken'))) {
+    let elems = document.querySelectorAll('span');
+    let iterator = false;
+    elems.forEach(function(elem) {
+        if (elem.classList.contains("taken")) {
+            iterator = true;
+        }
+    });
+    if (!iterator) {
         $.post('ajax-php/addUser.php', {
                 login: form.login.value,
                 password: form.password.value,
