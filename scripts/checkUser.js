@@ -9,37 +9,45 @@ function checkUser(user)
         return;
     }
     if (user.name === "login") {
+
         $.post('ajax-php/checkUser.php', {login: user.value},
             function (data)
             {
-                $('#used-login').html(data);
-            });
+                $('#used-login').html(data.response);
+            }, 'json');
+
     } else if (user.name === "password") {
+
             $.post('ajax-php/checkUser.php', {password: user.value},
                 function (data)
                 {
-                    $('#used-pass').html(data);
-                });
+                    $('#used-pass').html(data.response);
+                }, 'json');
+
     } else if (user.name === "confirm_password") {
+
             $.post('ajax-php/checkUser.php', {confirm_password: user.value,
-                                     pass: document.getElementById("pass").value},
+                                              pass: document.getElementById("pass").value},
                 function (data)
                 {
-                    $('#used-conf-pass').html(data);
-                });
+                    $('#used-conf-pass').html(data.response);
+                }, 'json');
 
     } else if (user.name === "email") {
+
             $.post('ajax-php/checkUser.php', {email: user.value},
                 function (data)
                 {
-                    $('#used-email').html(data);
-                });
+                    $('#used-email').html(data.response);
+                }, 'json');
 
     } else if (user.name === "name") {
+
             $.post('ajax-php/checkUser.php', {name: user.value},
                 function (data)
                 {
-                    $('#used-name').html(data);
-                });
+                    $('#used-name').html(data.response);
+                }, 'json');
+
     }
 }

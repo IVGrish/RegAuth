@@ -10,6 +10,7 @@ if (isset($_POST['signup'])) {
     $json['confirm_password'] = md5($_POST['confirm_password']);
     $json['email'] = $_POST['email'];
     $json['name'] = $_POST['name'];
-    Json::update($json);
-    $_SESSION['name'] = $json['name'];
+    if (Json::update($json)) {
+        $_SESSION['name'] = $json['name'];
+    }
 }

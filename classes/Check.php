@@ -20,23 +20,32 @@ class Check
 
     static public function checkLogin(string $login): void
     {
+        header('Content-Type: application/json; charset=utf-8');
         try {
             $login = self::sanitizeString($login);
+
             $json = Json::read();
+
             if (in_array($login, $json['login'])) {
-                echo "<span class='taken'>&nbsp;&#x2718; " .
-                    "The login '$login' is taken</span>";
+                $response = [
+                    "response" => "<span class='taken'>&nbsp;&#x2718; " .
+                                  "The login '$login' is taken</span>"
+                ];
             } else {
-                echo "<span class='available'>&nbsp;&#x2714; " .
-                    "The login '$login' is available</span>";
+                $response = [
+                    "response" => "<span class='available'>&nbsp;&#x2714; " .
+                                  "The login '$login' is available</span>"
+                ];
             }
+            echo json_encode($response);
         } catch (Exception $e) {
-            echo $e->getMessage();
+            echo json_encode(["response" => $e->getMessage()]);
         }
     }
 
     static public function checkPassword(string $password): void
     {
+        header('Content-Type: application/json; charset=utf-8');
         try {
             $password = self::sanitizeString($password);
 
@@ -52,77 +61,106 @@ class Check
                     $newArrStr[] = $elem;
                 }
             }
+
             if ($length == count($newArrInt) || $length == count($newArrStr)) {
-                echo "<span class='taken'>&nbsp;&#x2718; " .
-                    "The password is invalid, " .
-                    "<br>make sure you typed letters and numbers together</span>";
+                $response = [
+                    "response" => "<span class='taken'>&nbsp;&#x2718; " .
+                                  "The password is invalid, " .
+                                  "<br>make sure you typed letters and numbers together</span>"
+                ];
             } elseif (!preg_match("#^[a-zA-Z0-9]{6,}$#", $password)) {
-                echo "<span class='taken'>&nbsp;&#x2718; " .
-                    "The password is invalid, " .
-                    "<br>make sure you typed only letters and numbers</span>";
+                $response = [
+                    "response" => "<span class='taken'>&nbsp;&#x2718; " .
+                                  "The password is invalid, " .
+                                  "<br>make sure you typed only letters and numbers</span>"
+                ];
             } else {
-                echo "<span class='available'>&nbsp;&#x2714; " .
-                    "The password is valid</span>";
+                $response = [
+                    "response" => "<span class='available'>&nbsp;&#x2714; " .
+                                  "The password is valid</span>"
+                ];
             }
+            echo json_encode($response);
         } catch (Exception $e) {
-            echo $e->getMessage();
+            echo json_encode(["response" => $e->getMessage()]);
         }
     }
 
     static public function checkConfirmPassword(string $confirmPassword, string $pass): void
     {
+        header('Content-Type: application/json; charset=utf-8');
         try {
             $confirmPassword = self::sanitizeString($confirmPassword);
             $pass = self::sanitizeString($pass);
 
             if ($confirmPassword != $pass) {
-                echo "<span class='taken'>&nbsp;&#x2718; " .
-                    "The passwords don't match</span>";
+                $response = [
+                    "response" => "<span class='taken'>&nbsp;&#x2718; " .
+                                  "The passwords don't match</span>"
+                ];
             } else {
-                echo "<span class='available'>&nbsp;&#x2714; " .
-                    "The passwords match</span>";
+                $response = [
+                    "response" => "<span class='available'>&nbsp;&#x2714; " .
+                                  "The passwords match</span>"
+                ];
             }
+            echo json_encode($response);
         } catch (Exception $e) {
-            echo $e->getMessage();
+            echo json_encode(["response" => $e->getMessage()]);
         }
     }
 
     static public function checkEmail(string $email): void
     {
+        header('Content-Type: application/json; charset=utf-8');
         try {
             $email = self::sanitizeString($email);
 
             $json = Json::read();
+
             if (!preg_match("#^[A-Z0-9._%+-]+@[A-Z0-9-]+\.[A-Z]{2,4}$#i", $email)) {
-                echo "<span class='taken'>&nbsp;&#x2718; " .
-                    "The email is not in the correct format</span>";
+                $response = [
+                    "response" => "<span class='taken'>&nbsp;&#x2718; " .
+                                  "The email is not in the correct format</span>"
+                ];
             } elseif (in_array($email, $json['email'])) {
-                echo "<span class='taken'>&nbsp;&#x2718; " .
-                    "The email '$email' is taken</span>";
+                $response = [
+                    "response" => "<span class='taken'>&nbsp;&#x2718; " .
+                                  "The email '$email' is taken</span>"
+                ];
             } else {
-                echo "<span class='available'>&nbsp;&#x2714; " .
-                    "The email '$email' is available</span>";
+                $response = [
+                    "response" => "<span class='available'>&nbsp;&#x2714; " .
+                                  "The email '$email' is available</span>"
+                ];
             }
+            echo json_encode($response);
         } catch (Exception $e) {
-            echo $e->getMessage();
+            echo json_encode(["response" => $e->getMessage()]);
         }
     }
 
     static public function checkName(string $name): void
     {
+        header('Content-Type: application/json; charset=utf-8');
         try {
             $name = self::sanitizeString($name);
 
-            if (!preg_match("#^[a-zA-Z]{6,}$#", $name)) {
-                echo "<span class='taken'>&nbsp;&#x2718; " .
-                    "The name is invalid, " .
-                    "<br>make sure you typed only letters</span>";
+            if (!preg_match("#^[a-zA-Z]{2,}$#", $name)) {
+                $response = [
+                    "response" => "<span class='taken'>&nbsp;&#x2718; " .
+                                  "The name is invalid, " .
+                                  "<br>make sure you typed only letters</span>"
+                ];
             } else {
-                echo "<span class='available'>&nbsp;&#x2714; " .
-                    "The name is valid</span>";
+                $response = [
+                    "response" => "<span class='available'>&nbsp;&#x2714; " .
+                                  "The name is valid</span>"
+                ];
             }
+            echo json_encode($response);
         } catch (Exception $e) {
-            echo $e->getMessage();
+            echo json_encode(["response" => $e->getMessage()]);
         }
     }
 }
